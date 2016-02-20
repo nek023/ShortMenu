@@ -22,12 +22,12 @@ class ShortMenu: NSObject {
     // MARK: - Shortening Menu
     
     class func shortenMenu() {
-        guard let mainMenu = NSApp.mainMenu else {
-            return
+        guard let app = NSApp, let mainMenu = app.mainMenu else {
+                return
         }
         
-        for index in 1..<mainMenu.numberOfItems {
-            let menuItem = mainMenu.itemAtIndex(index)!
+        for (index, menuItem) in mainMenu.itemArray.enumerate() {
+            if index == 0 { continue }
             
             if let submenu = menuItem.submenu where submenu.title.characters.count > 2 {
                 let index = submenu.title.startIndex.advancedBy(2)
